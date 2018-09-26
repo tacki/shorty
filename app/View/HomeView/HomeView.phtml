@@ -1,0 +1,49 @@
+<?php $f3 = \Base::instance() ?>
+
+<?php if($f3->get('SESSION.token')) : ?>
+
+    <div class="form-group">
+        <?php $tokenurl = $f3->get('REALM').$f3->get('SESSION.token') ?>
+        <h3><a href="<?php echo $tokenurl ?>"><?php echo $tokenurl ?></a></h3>
+        <?php echo $f3->get('DICT.nowlinksinfo') ?><br>
+        <br>
+        <?php $f3->clear('SESSION.token') ?>
+
+        <button id="markup-copy" class="btn btn-success">
+            <span class="glyphicon glyphicon-copy" aria-hidden="true"></span><?php echo $f3->get('DICT.copyurltoclipboard') ?>
+        </button>
+        <button class="btn btn-primary" onclick="location.href='/'">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><?php echo $f3->get('DICT.gobackbtn') ?>
+        </button>
+    </div>            
+
+<script>
+    document.getElementById('markup-copy').addEventListener('click', function() {
+        clipboard.copy({
+            'text/plain': '<?php echo $tokenurl ?>',
+            'text/html': '<?php echo $tokenurl ?>'
+        }).then(
+            function(){console.log('success'); },
+            function(err){console.log('failure', err);
+        });
+    });
+</script>
+
+<?php else : ?>
+
+    <h2><?php echo $f3->get('DICT.header') ?></h2>
+
+    <form action=""  method="POST" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <textarea rows="5" name="url" id="url" maxlength="2000" placeholder="<?php echo $f3->get('DICT.pastelink') ?>" class="form-control" autofocus required></textarea> 
+            <br>
+            <input type="submit" name="submit" class="btn btn-primary btn-lg" value="<?php echo $f3->get('DICT.createlinkbtn') ?>"> 
+        </div>            
+ 
+    </form>
+
+<?php endif ?>
+ 
+
+</main>

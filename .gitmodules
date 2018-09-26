@@ -1,0 +1,3 @@
+[submodule "vendor/f3"]
+	path = vendor/f3
+	url = https://github.com/bcosca/fatfree-core

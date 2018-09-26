@@ -1,0 +1,62 @@
+<?php $f3 = \Base::instance() ?>
+
+<h2><?php echo $f3->get('DICT.installheader') ?></h2>
+
+<?php if($f3->get('INSTALL')) : ?>   
+    
+    <?php 
+        $db = $f3->get('DB');
+        
+        $db->begin();
+        if ($db->exec(file_get_contents('../app/db/0.1_'.$f3->get('DB')->driver().'.sql')) !== false) {
+            echo "<h3><span class=\"badge badge-success\">Success</span></h3>";
+            $db->commit();
+        } else {
+            echo "<span class=\"badge badge-danger\">Failure</span>";
+            $db->rollback();
+        }
+    ?>
+    
+<a href='/' class='btn btn-primary btn-lg'><?php echo $f3->get('DICT.gobackbtn')?></a>
+
+<?php else : ?>
+
+    <p><?php echo $f3->get('DICT.needinstallation') ?></p>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Type</h5>
+            <span class="mb-1"><?php echo $f3->get('DATABASE.TYPE')?></span>  
+          </div>
+        </li>
+    <?php if($f3->get('DATABASE.TYPE') == 'sqlite') : ?>   
+         <li class="list-group-item">  
+          <div class="d-flex w-100 justify-content-between">             
+            <h5 class="mb-1">Path</h5>
+            <p class="mb-1"><?php echo $f3->get('DATABASE.PATH')?></p>  
+          </div>          
+        </li>     
+    <?php else : ?>
+        <li class="list-group-item">    
+          <div class="d-flex w-100 justify-content-between">            
+            <h5 class="mb-1">Host</h5>
+            <p class="mb-1"><?php echo $f3->get('DATABASE.HOST')?></p>  
+          </div>
+        </li>    
+        <li class="list-group-item">   
+          <div class="d-flex w-100 justify-content-between">            
+            <h5 class="mb-1">Database</h5>
+            <p class="mb-1"><?php echo $f3->get('DATABASE.DBNAME')?></p>  
+          </div>
+        </li>
+    <?php endif ?>    
+    </ul>
+
+    <form action=""  method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="submit" name="submit" class="btn btn-primary btn-lg" value="<?php echo $f3->get('DICT.installnow') ?>"> 
+        </div>            
+    </form>
+
+<?php endif ?>
