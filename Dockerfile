@@ -1,4 +1,5 @@
 FROM php:7.1-apache
+MAINTAINER tacki@posteo.de
 
 COPY --chown=www-data app/ public/ vendor/ /var/www/html/
 
