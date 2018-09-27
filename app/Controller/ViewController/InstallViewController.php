@@ -30,6 +30,15 @@ class InstallViewController extends ViewController
     
     public function post($f3)
     {
-        $f3->set('INSTALL', true);
+        $db = $f3->get('DB');
+        
+        $db->begin();
+        if ($db->exec(file_get_contents('../app/db/0.1_'.$f3->get('DB')->driver().'.sql')) !== false) {
+            $f3->set('INSTALL_success', true);
+            $db->commit();
+        } else {
+            $f3->set('INSTALL_failure', true);
+            $db->rollback();
+        }        
     }
 }    

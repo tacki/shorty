@@ -37,24 +37,16 @@ class DatabaseController
                     trim(file_get_contents(getenv('SHORTY_DATABASE_PASSWORD_FILE'))) :
                     $f3->get('DATABASE.PASSWORD');
 
-        if ($dbtype == 'sqlite') {
-            $connstr = $dbtype.":".$dbpath;
-        } else {
-            $connstr = $dbtype.":".
+        $connstr = $dbtype.":".
                        "host=".$dbhost.";".
                        "port=".$dbport.";".
                        "dbname=".$dbname.";";    
-        }
         
         $db =  new \DB\SQL(
             $dbdsn ? $dbdsn : $connstr,
             $dbuser,
             $dbpass
         );        
-        
-        if (!$db->exec("SHOW DATABASES LIKE '$dbname';")) {
-            throw new \Exception("Database '$dbname' not found");
-        }
 
         return $db;
     }

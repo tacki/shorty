@@ -2,21 +2,11 @@
 
 <h2><?php echo $f3->get('DICT.installheader') ?></h2>
 
-<?php if($f3->get('INSTALL')) : ?>   
-    
-    <?php 
-        $db = $f3->get('DB');
-        
-        $db->begin();
-        if ($db->exec(file_get_contents('../app/db/0.1_'.$f3->get('DB')->driver().'.sql')) !== false) {
-            echo "<h3><span class=\"badge badge-success\">Success</span></h3>";
-            $db->commit();
-        } else {
-            echo "<span class=\"badge badge-danger\">Failure</span>";
-            $db->rollback();
-        }
-    ?>
-    
+<?php if($f3->get('INSTALL_success')) : ?>   
+<h3><span class="badge badge-success">Success</span></h3>
+<a href='/' class='btn btn-primary btn-lg'><?php echo $f3->get('DICT.gobackbtn')?></a>
+<?php elseif($f3->get('INSTALL_failure')) : ?> 
+<h3><span class="badge badge-failure">Failure</span></h3>
 <a href='/' class='btn btn-primary btn-lg'><?php echo $f3->get('DICT.gobackbtn')?></a>
 
 <?php else : ?>
