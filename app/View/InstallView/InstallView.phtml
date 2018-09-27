@@ -3,11 +3,17 @@
 <h2><?php echo $f3->get('DICT.installheader') ?></h2>
 
 <?php if($f3->get('INSTALL_success')) : ?>   
-<h3><span class="badge badge-success">Success</span></h3>
-<a href='/' class='btn btn-primary btn-lg'><?php echo $f3->get('DICT.gobackbtn')?></a>
+    <h3><span class="badge badge-success">Success</span></h3>
+    <a href='/' class='btn btn-primary btn-lg'>
+        <?php echo $f3->get('DICT.gobackbtn')?>
+    </a>
+
 <?php elseif($f3->get('INSTALL_failure')) : ?> 
-<h3><span class="badge badge-failure">Failure</span></h3>
-<a href='/' class='btn btn-primary btn-lg'><?php echo $f3->get('DICT.gobackbtn')?></a>
+
+    <h3><span class="badge badge-failure">Failure</span></h3>
+    <a href='/' class='btn btn-primary btn-lg'>
+        <?php echo $f3->get('DICT.gobackbtn')?>
+    </a>
 
 <?php else : ?>
 
